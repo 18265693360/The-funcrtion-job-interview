@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 跨域仅仅发生在浏览器
+    // 其他地方没有跨域 app 小程序 后端 也没有跨域
+    // 域名注册  阿里云
+
+    router.get('/getJson', (req,res)=>{
+        res.json({
+            text:"我是sever1返回的数据",
+            data:"空数据"
+        })
+    })
+
+module.exports = router;
+
+    // 跨域报错
+    // No'Access-Contril-Allow-Origin'
+</script>
+</html>

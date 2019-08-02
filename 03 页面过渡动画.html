@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+/*
+* 到相应的页面来进行设置 动画
+*
+* 为什么两个变量来控制 因为背景先出来 然后菜单出
+* v-show="isShowTitles"
+* v-show="isActive"
+*
+*
+*出现横向滚动条怎么办
+* 自动换行css
+* white-space:normal;
+* word-break:break-all;
+*
+* 假如过渡动画
+* 将要加入动画的内容放入
+* transition标签中 name="slide"
+* 然后对应的标签中于鏊绑定 @click="ShowTitles"
+* methods中声明
+* showTitles(){
+*   this.isShowTitles = true;
+*   this.isActive = true;
+* }
+*
+* hideTitles(){
+*     this.isActive = false
+*     setTimeout(()=>{
+*       this.isShowTitles = false
+*     },500)
+* }
+*
+*
+*
+*
+* .slide-enter, .slide-leave-to{
+*     transform: translate3d(-100%,0,0)
+* }
+* .slide-enter-active, .slide-leave-active{
+* transition: transform .5s ease;
+* }
+*
+*
+*
+*
+*
+* */
+
+
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var obj = {
+        a:1,
+        b:function () {
+            console.log(this.a);
+        },
+        c:()=>{
+            console.log(this.a);
+        }
+    };
+    var a = 2;
+    var objectB = obj.b;
+    obj.b();
+    objectB();
+    obj.b.call(window);
+    obj.c();
+    obj.c.call(obj)
+    // 1 2 2 2 2
+
+
+
+    function test(m) {
+        m={a:1}
+    }
+    var m = {b:2}
+    test(m);
+    console.log(m);
+    //{b:2}
+
+
+    console.log(typeof (null)); //object
+    console.log(0.1 + 0.2 === 0.3);//false
+    console.log(2 && 'a');//a
+    console.log('5' < '10');//false
+    console.log('23' > 3);//true
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <Loadmore :top-method="loadTop"
+              :bottom-method="loadBottom">
+        <Myswiper />
+
+
+    </Loadmore>
+</div>
+
+</body>
+<script>
+    // npm install babel-plugin-component-D
+
+    //然后去项目的目录下面 修改 .babelrc文件的配置
+    "plugins":[["component"，【
+    {
+        "libraryName": "mint-ui",
+        "style":true
+    }
+    ]],"transform-vue-jsx", "transform-runtime"
+    }
+    // 不要引入最后一个]
+
+    //下拉刷新
+    // index\index.vue
+    //引入 下拉组件
+
+    // <script>
+    import {Loadmore} from 'mint-ui';
+
+    export default{
+        name: "index",
+        components: {
+            MySwiper,
+            ContentItem,
+            //需要在组件中注册一下
+            Loadmore
+        },
+        data() {
+          return{
+           contentData:[],
+           pn:1,//第一页
+              booksSize:2,
+              size:2
+          }
+        },
+        methods: {
+            getContent() {
+                return new Promise((resolve)=>{
+                        this.$axios.get(this.$api.getContent, {
+                            params: {
+                                booksSize: 2,
+                                size: 4
+                            }
+                        })
+                    },
+                    loadTop(){
+                    this.queryData = {
+                        pn:1,
+                        booksSize:2,
+                        size:2
+                    }
+                    //异步操作
+                    this.getContent()
+                },
+                loadBottom(){
+
+                }
+                })
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+</script>
+</html>

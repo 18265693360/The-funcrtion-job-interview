@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //原理
+    // 原理在服务器上先请求到别的域名下的数据探后返回
+    // 前端请求同域名下的接口 换句话说就是服务器代为转发了一次数据
+    // （跨域仅仅存在于浏览器端）
+
+
+    // 代理跨域
+    // 既然只有浏览器存在跨域 我们就可以使用服务器 将 跨域的接口转发过来就好了
+
+    //sever2\routes\index.js
+    var axios = require('axios');
+
+    router.get('/simpleRequest',(req,res)=>{
+        axios.get("http://localhost:3000/simpleRequest").then(response=>{
+            res.json(response.data)
+        })
+    })
+
+    module.exports = router;
+
+    //sever2\public\proxy.html
+    // 请求地址变成了本地的
+    axios.get("/simpleRequest").then(res=>{
+        console.log(res);
+    })
+
+
+    //代理跨域中间件 不会让你每一次跨域都写一次
+    // githup 搜索proxy (express and browser-sync)
+    // 样式代码
+    var express = require('express');
+    var proxy = require('http-proxy-middleware')//就是这个
+
+    var app = express();
+    // '/api' 就是为了区分 需要代理跨域的 和 不需要代理跨域的 要区分开
+    app.use('/api',proxy({
+        target:'http://www.example.org',
+        changeOrigin: true}))
+
+    //yarn add http-proxy-middleware
+    //app.js
+    // 引入
+    var httpProxy = require("http-proxy-middleware")
+
+    app.use("/server1", httpProxy({
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        pathRewrite:{
+            "/server1":""
+        }
+    }))
+
+
+
+
+
+</script>
+</html>

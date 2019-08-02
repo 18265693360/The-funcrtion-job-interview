@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" id="form">
+    <input type="file" id="file">
+</form>
+<button id="btn">上传</button>
+</body>
+<!--引入axios-->
+<script src="node_modules/axios/index.js"></script>
+<script>
+    var form = document.querySelector('#form');
+    var file = document.querySelector('#file');
+    var btn = document.querySelector('#btn');
+    var token = "";
+    var img = document.querySelector('#img');
+
+    //先拿token
+    axios.get('http://upload.yaojunrong.com/gettoken').then(res=>{
+        token = res.data.data
+    })
+
+
+    // file已经被选中了 onchange会触发 得到文件的具体值
+    file.onchange = function (event) {
+        // 具体值在event事件对象中
+        console.log(event.target.files);
+        // 会返回一个类数组对象
+        // 捞数据
+        // 第0项才是文件本身
+        // axios上传的是表单对象 不是传统的对象
+        var file = event.target.files[0];
+        // 创建表单对象
+        var form = new FormData();
+        //向表单对象添加 键名 值本身
+        form.append('file',file)
+        form.append('token',token)
+
+        //上传 图片
+        axios.post('https://ipload-z1.qiniup.com', form).then(res=>{
+            var url = res.data.url;
+            img.src = url;
+        })
+
+    }
+</script>
+</html>

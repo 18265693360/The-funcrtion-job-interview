@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="book">
+        <div class="book-left">
+            <img :src="bookData.img" :alt="bookData.img" class="img">
+        </div>
+        <div class="book-right">
+            <h2 class="title">
+               {{bookData.title}}
+            </h2>
+            <h2 class="author">
+                {{bookData.author}}
+            </h2>
+            <div class="looknums">
+                {{bookData.looksnum}}
+            </div>
+            <div class="like">
+                {{bookData.startsnums}}
+            </div>
+            <div class="book-desc">
+                {{bookData.desc}}
+            </div>
+            <div class="book-title">
+                {{bookData.title}}
+            </div>
+        </div>
+        <div class="show-titles">
+            <h2 class="title">
+                查看目录
+            </h2>
+            <span>共{{totalTitles}}章</span>
+        </div>
+        <div class="date">
+          {{bookData.updateTime}}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    import {Button} from 'min-ui';
+    import moment from 'moment';
+
+
+    // views/details/index.vue
+    // router\index.js 添加路由
+    {
+        // path:'details/:id',
+        // name:'details',
+        // component:()=>import('@/views/details'),
+        // meta:{
+        //     title:'书籍详情'
+    }
+
+    export default {
+        name:"dy-details",
+        //注册一下
+        components:{
+          Button,
+        },
+        data(){
+            return {
+                bookData:[],
+                totalTitles:0
+            }
+        },
+        methods:{
+            getBookData(){
+                const id = this.$router.params.id
+                this.$axios.get(this.$api.getBook + id).then(res=>{
+                    // console.log(res);
+                    this.bookData = res.data;
+                    this.totalTitles = res.length;
+                })
+            }
+        }
+    }
+
+    //vue中要作用到组件内部 因为组件内部没有哈希值
+    // 方案一 style标签中就不要用 scope
+    // 方案二 就是用 /deep/ 深度选择器
+    // 还不出来 就只有 !important 影响性能
+
+</script>
+</html>

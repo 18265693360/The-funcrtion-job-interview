@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<template>
+    <div>
+        <!--数字 数组 true false  对象 一定要用绑定语法 不然会被当做字符串处理-->
+        <!-- :fixed tabbar 就不会随着页面滚动 固定了位置 -->
+        <Tabbar v-model="selected" :fixed="true">
+            <TabItem id="index">
+                <i class="iconfont icon-yemian" slot="icon"></i>
+                <!--slot="icon" 具名插槽-->
+                首页
+            </TabItem>
+            <TabItem id="learn">
+                <i class="iconfont icon-xuexi-" slot="icon"></i>
+                我的学习
+            </TabItem>
+            <TabItem id="person">
+                <i class="iconfont icon-UserSettings" slot="icon"></i>
+                个人中心
+            </TabItem>
+            <TabItem  slot="icon" id="waimai" src="../assets/100.png">
+
+            </TabItem>
+        </Tabbar>
+    </div>
+</template>
+
+
+
+<!--layout/index.vue-->
+<template>
+    <div>
+        <router-view />
+        <DyTabbar />
+    </div>
+</template>
+</body>
+<script>
+    import DyTabbar from '@/components/tab-bar'
+    export default{
+        name: "layout",
+        components: {
+            DyTabbar
+        }
+    }
+
+
+    //  views/layout/index.vue
+
+    // template div   router-view
+
+
+
+
+
+
+
+    // component/tab-bar/index.vue
+
+    // 局部部署 yarn add mint-ui --save
+
+
+
+    //  <script>
+        import 'mint-ui/lib/tabbar/style.css'
+        import 'mint-ui/lib/tab-item/style.css'
+        import {Tabbar, TabItem} from 'mint-ui'
+
+    // 声明组件
+    export default{
+            name:"tab-bar",
+            components:{
+                Tabbar,
+                TabItem
+            },
+        // 上面有v-model 所以下面有data
+        data(){
+            return{
+                selected
+            }
+        }
+    }
+    // <script>
+
+
+    // 单个插槽及具名插槽理解
+    // 插槽就是动态交互父子组件之间的数据的机器臂，二话不说上代码：
+    // <slot>元素可以用一个特殊的属性 name来配置如何分发内容。多个插槽可以有不同的名字。具名插槽将匹配内容片段中有对应 slot 特性的元素。
+    //     仍然可以有一个匿名插槽，它是默认插槽，作为找不到匹配的内容片段的备用插槽。如果没有默认插槽，这些找不到匹配的内容片段将被抛弃。
+        // <div id="solt">
+    //     <app-layout>
+    //         <p slot="footer">这个是footer</p>
+    //         <h1 slot="header">这个是header</h1>
+    //         <p>这个什么都没有，只是一个P标签A</p>
+    //         <p>这个什么都没有，只是另一个P标签B</p>
+    //         <p slot="footer">这个是footer</p>
+    //         <p>这个什么都没有，只是另一个P标签C</p>
+    //     </app-layout>
+    // </div>
+    // <script>
+    // Vue.component('app-layout', {
+    //     template: '\
+    //                 <div class="container">\
+    //                 <header>\
+    //                     <slot name="header"></slot>\
+    //                 </header>\
+    //                 <main>\
+    //                     <slot></slot>\
+    //                 </main>\
+    //                 <footer>\
+    //                     <slot name="footer"></slot>\
+    //                 </footer>\
+    //                 </div>\
+    //                 ',
+    // })
+    //
+    // new Vue({
+    //     el: '#solt'
+    // })
+
+    //输出
+    /*
+    * 这个是header
+    * 这个什么都没有 只是一个p标签A
+    * 这个什么都没有 只是一个p标签B
+    * 这个什么都没有 只是一个p标签C
+    * 这是个footer
+    * 这是个footer
+    * */
+
+    // 所以说，具名插槽的渲染顺序，完全取决于模板，而不是取决于父组件中元素的顺序，而且，若子组件模板中solt存在，且父组件含有solt的name为空的标签，会把这些标签合都渲染，无论多少
+</script>
+</html>

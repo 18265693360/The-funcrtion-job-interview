@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //Jsonp 跨域
+    // 在router中新开一个路由
+
+    router.get('/getJson',(req,res)=>{
+        res.jsonp({
+            text:"我是server1返回的数据",
+            data:"空数据"
+        })
+    })
+
+    //手写跨域请求
+    //axios 不支持ajax原生jsonp
+    // 步骤
+    //1.先定义一个function getJson
+    function getJson(res){
+        console.log(res);
+    }
+
+    var script = document.createElement("script");
+    // jsonp默认传的参数是callback getJson就是字符串 callback就是回调函数
+    // 要将本地函数名告诉服务器
+    script.src = "http://localhost:3000/getJson?callback=getJson";
+    document.body.appendChild(script);
+
+    // axios默认不支持JSONP
+    //应用实例
+    function something() {
+        console.log(res);
+    }
+
+    //关键数据
+    const wd = "李现";
+    var script = document.createElement('script');
+    script.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${wd}&cb=dosomething`;
+                                        //要有关键数据{wd}
+    document.body.appendChild(script);
+
+    //不会用原生的写
+    // JQ写Jsonp
+    $.ajax({
+        url:"http://localhost:3000/getJsonp",
+        type: "GET",
+        dataType:"jsonp",
+        success(res){
+            console.log(res);
+        }
+    })
+
+    $.ajax({
+        url:"https://www.baidu.com",
+        type:"GET",
+        dataType:"jsonp",
+        success(res) {
+            console.log(res);
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

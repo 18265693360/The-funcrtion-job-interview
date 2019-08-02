@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 一初始化一个项目
+    * 一般 环境
+    *
+    * 1，安装node.js
+    * 2. npm cnpm yarn
+    * npm  install -g npm
+    * npm insatll -g cnpm --register=http://r.cnpmjs.org
+    *
+    * 淘宝镜像
+    * npm install -g cnpm --registry=http://register.npm.taobao.org
+    *
+    *
+    *二 初始化vue-cli
+    * 1 安装vue-cli
+    *   cnpm install -g vue-cli
+    *
+    * 2初始化后项目
+    * vue init webpack Vue-Project
+    *
+    * cnpm install
+    *
+    * npm run dev
+    *
+    * npm install node-sass sass-loader --save-dev (sass支持)
+    * npm install normalize.css --save(安装初始化样式)
+    * npm insatll axios --save (安装ajax库)
+    * npm install moment --save (处理时间的库)
+    * npm install mint-ui (ui库)
+    *
+    *可以 yarn add normalize.css axios mint-ui --save
+    * npm i -S amfe-flexible(淘宝移动端适配方案)  （git 上有）
+    *
+    * yarn add node-sass sass-loader --save-dev
+    * （开发依赖   不会写进最终的的代码里面）
+    *
+    * */
+
+    /*
+    * 所有的放到一个文件夹下 目录views
+    *
+    * router  中 router,js
+    * export default new Router({
+    *    routes[
+    *       path:'/',
+    *       name:'index',
+    *       component:()=> import("@/views/index")
+    *
+    *    ]
+    * })
+    *
+    * main.js中引入初始化样式
+    * import 'normalize.css/normailze.css'
+    * import 'amfe-flexible/index'//引入淘宝移动端的方案
+    *
+    * src下面创建init.scss初始化样式
+    * body{
+    *     font-size: 14px!important; (为什么要important 因为要引入淘宝的方案)
+    *     因为要覆盖淘宝适配方案的行内样式
+    * }
+    * li{
+    *      list-style:none;
+    * }
+    *
+    *
+    * src/views/index/index.vue
+    *
+    * src/router/index.js/
+    * routes:[
+    *   path:'/',
+    *   name:'index',
+    *   component:()=>import('@/views/index')
+    * ]
+    *
+    *     App.vue中删除样式
+    *
+    *    globalcss/init.css
+    *    手机端的开发默认字体 自己不要设置
+    *
+    * */
+
+
+
+</script>
+</html>

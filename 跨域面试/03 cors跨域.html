@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //cors需要浏览器和服务器同时支持
+    // 跨域也就是开发阶段用 不要考虑兼容性 不低于IE10
+
+    // 整个cors跨域的过程 都是浏览器自动完成
+    // 分简单请求 和 非简单请求
+
+    //sever2
+    // public/cors.html
+
+    //sever1
+    router.get('/simpleRequest',(req,res)=>{
+        res.json({
+            text:"我是简单请求的响应",
+            data:"今天学习很开心"
+        })
+    })
+
+    //sever1 静态资源请求
+    axios.get('/simpleRequest').then(res=>{
+        console.log(res);
+        // 没有origin:http://localhost:3002
+    })
+
+    //cors请求
+    //sever2
+    axios.get("http://localhost:3000/simpleRequest").then(res=>{
+        console.log(res,"简单请求");
+    })
+
+    //cors.html
+    // <script src="/js/axios.js"><script>
+    axios.get("http://localhost:3000/simpleRequest",{
+        params:{
+            sex:"man"
+        }
+    }).then(res=>{
+        console.log(res,"简单请求");
+    })
+
+    // 简单请求 步骤
+    // express 文档
+    // response 对象
+    /*
+    * 第一步 浏览器直接发出cors请求
+    * 发送cors中 会自动带上一个请求头
+    * origin:客户端域名
+    * 第二步：服务器根据请求返回内容
+    * 第三步：浏览器对返回的请求头进行分析
+    * 如果存在请求头为
+    * Access-Control-Allow-Origin:"客户端的域名
+    * 那么浏览器就会将请求到的数据返回给ajax对象
+    * 否则，浏览器将会触发ajax对象的onerror函数抛出一个错误
+    * 这种错误没有办法通过http状态码捕获 因为服务器是正确响应了 也就是正常
+    * 的200
+    * */
+
+    //代码实例
+    router.get('/simpleRequest',(req,res)=>{
+        //set()  键值对  ()里面添加键值对 "Access-Control-Allow-Origin","url"
+        res.set("Access-Control-Allow-Origin","http://localhost:3002")
+        res.json({
+            text:"我是简单请求",
+            data:"今天学习很开心"
+        })
+    })
+
+    //非简单请求
+    // public/nosimple
+    // <script src="/js/axios,js"><script/>
+    // <script>
+
+           //接口
+        axios.post("http://localhost:3000/noSimple",{
+        firstName:"liuyuhao",
+          lastName:"nice"
+        }).then(res=>{
+           console.log(res)
+        })
+    // <script/>
+
+    // sever1/router/index.js
+    router.post('/noSimple',(req,res)=>{
+        console.log(req.body);
+        res.json({
+            text:"我是sever1",
+            data:"这是一个非简单请求"
+        })
+    })
+</script>
+<script>
+    // ajax是近几年比较火的axios库
+    // ajax是有格式的
+
+    //第一种 传统的表单样式的数据
+    // 数据样式
+    xhr.send("sex=man&name=yaoming")
+
+
+    // application/json
+    // json字符串格式
+    // '{
+    //     "sex":"man",
+    //     "name":"yaoming"
+    //
+    // }'
+    xhr.send('{}')
+
+
+
+
+    // 非简单请求
+    /*
+    * 第一步
+    * 先发出一个options请求 该请求会带上一些请求头
+    * Origin: 客户端域名
+    * Access-Control-Request-Headers:content-type(表明客户端发送的请求头数据)
+    * Access-Control-Request-Method:POST(表明客户端发送的请求类型)
+    *
+    * 第二步：
+    * 服务器返回options请求
+    * Access-Control-Allow-Origin:允许跨域的域名
+    * （可以是指定的域名,也可以是全域名"*"）
+    * Access-Control-Allow-Headers:"与客户端对应"
+    * Access-Control-Allow-Method: 与客户端的对应或者大于客户端
+    *
+    * 第三步：
+    * 客户端检查options请求的响应头 如果
+    * Access-Control-Allow-Origin：允许跨域的域名
+    * Access-Control-Allow-Headers:""与客户端对应
+    * Access-Control-Allow-Method: 与客户端的对应或者大于客户端
+    * 如果对应上了 那么 浏览器正式发起一个请求
+    *
+    * 第四步：
+    * 服务器对请求做出回应 同时 带上之前发送的请求头 完成跨域
+    * */
+
+
+    // sever2 发的是options请求
+    router.options('/noSimple',(req,res)=>{
+        res.set({
+            "Access-Control-Allow-Origin":"http://localhost:3002",
+            "Access-Control-Allow-Headers":"Content-Type",
+            "Access-Control-Allow-Methods":"POST"
+        })
+        res.send();
+    })
+    //两个请求都要得到 允许  都要加请求头  以及权限
+    // 第二个请求也要允许
+    router.post('/noSimple',(req,res)=>{
+        console.log(req.body);
+        res.set({
+            "Access-Control-Allow-Origin":"http://localhost:3002",
+            "Access-Control-Allow-Headers":"Content-Type",
+            "Access-Control-Allow-Methods":"POST"
+        });
+        res.json({
+            text:"我是sever1",
+            data:"这是一个非简单请求"
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

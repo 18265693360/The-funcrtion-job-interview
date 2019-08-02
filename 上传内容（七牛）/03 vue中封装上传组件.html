@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+   <!--label默认inline-block 要换成display-->
+   <template>
+       <label class="hs-upload-wrap">
+           <!--input + file 是前端唯一可以获取文件的方法-->
+           <input type="file" class="hs-upload-input" @change="change">
+           <slot></slot>
+       </label>
+   </template>
+
+</body>
+<script>
+    // 封装的上传组件
+    // components/hs-uploader/index.vue
+
+
+    //表单都是用 label 可以写样式 自定义
+
+    // views/test.vue
+    //import hsUpload from '@/components/hs-upload'
+
+    //<template>
+    //   <div>
+    // 这里不用这个 (<hs-upload></hs-upload>)用的是 div 因为label中再放button 会混乱
+    //   </div>
+    //</template>
+
+    import axios from 'axios'
+    //获取 token 还有 图片文件
+
+
+    export default {
+        name:"index",
+        components:{
+            //注册组件
+            hsUpload
+        },
+        data(){
+          return{
+              token:''
+          }
+        },
+        methods:{
+          getToken(){
+              axios.get('http://upload.yaojunrong.com/getToken').then(res=>{
+                  this.token = res.data.data
+              })
+          },
+          change($event){
+              const file = $event.target.files[0]
+              const form = new FormData()
+              form.append('file',file)
+              form.append('token',this.token)
+              axios.post('https://upload-z1.qiniup.com', form).then(res=>{
+                  console.log(res);
+                  //子向父传值
+                  this.$emit('success', res.data.url)
+                  //组件封装完成
+              })
+          }
+        },
+        //先给token
+        created(){
+            this.getToken()
+        }
+    }
+
+    //引入路由
+    {
+        //  path:'/test',
+        //  name:'test',
+        //  meta:{
+               //titel:'测试页面'
+        //},
+        //  component:()=>import('@/views/test')
+    }
+</script>
+</html>
