@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 页面跳转不能每次都发送http请求
+    *
+    *
+    * computed :{
+    *   userData(){
+    *     return this.$store.state.userData
+    *   }
+    * }
+    * userData中的数据从vuex中来
+    * vuex 就是一个js插件
+    *
+    * 因为vuex是一个js插件 刷新页面 重新加载js
+    * 数据从上一个页面来 上一个页面ajax请求来
+    * 但是页面刷新不会发送ajax请求
+    *
+    * 所以要让数据持久化 只有用户改变自己的数据
+    * 才回去触发更新
+    * vuex持久化
+    * 三个方案 存到cookie 存到sessionstorage
+    *         存到到后端需要的时候去拿
+    *
+    * 此处用到的的是sessionstorage
+    *
+    * cookie localstorage sessionstorage 都是浏览器上的一块空间
+    * cookie每次请求都会带上cookie
+    * localstorage sessionStorage 每次请求都不会带
+    * sessinstorage 关闭浏览器这个应用 才会删除sessionstorage
+    *
+    *
+    * localStorage 和 sessionStorage 用法一样 set get remove
+    * 怎么用
+    * h5新添加
+    * //这里仅仅接受字符串
+    * 存储
+    * localStorage.setItem('name','lihong')
+    * 在application中查看
+    *
+    * 获取
+    * localStorage.getItem('name')
+    *
+    * 删除
+    * localstorage.removeItem('name')
+    * */
+
+
+</script>
+</html>

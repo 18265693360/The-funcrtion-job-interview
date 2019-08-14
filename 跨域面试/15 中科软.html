@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .test{
+            width: 100px;
+            height: 100px;
+            background: #ffdf7e;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -50px 0 0 -50px;
+        }
+    </style>
+</head>
+<body>
+<div class="test"></div>
+</body>
+<script>
+    // var a = 0;
+    // var b = false;
+    // var c = "0";
+    // var d = true;
+    // var e = a||b||c||d;
+    // console.log(e);//0
+    // //或运算 一真即真全假才假
+
+    var b = 10;
+    function a(c) {
+        // console.log(b);//10
+        // console.log(c);//20
+        console.log(this.b);//10
+        console.log(c);//20
+    }
+    // a(20)//10 20
+    a.call({b:20},[30])//20 [30]
+    // a.apply({b:30},[40])// 30  [40]
+
+</script>
+</html>

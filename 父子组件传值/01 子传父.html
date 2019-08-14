@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--子组件-->
+<template>
+    <input v-model="msg" @change="setMsg"/>
+</template>
+
+
+
+<!--父组件-->
+<template>
+    <login @transferUser = 'getMsg'></login>
+    <!--在父组件App.vue中 声明了一个方法 getMsg,
+     用transferUser事件调用getMsg方法 获取到从子组件传递过来的参数 msg-->
+</template>
+</body>
+
+<script>
+    //子组件
+    export default {
+        data(){
+            return {msg:''}
+        },
+        methods:{
+          setMsg(){
+              this.$emit('transferUser', this.msg)
+              //用$emit 来遍历 transferUser 事件
+              // 并返回 this.msg
+              // transferUser 是一个自定义事件
+              // 功能类似于一个中转 this.msg 将通过这个事件传递给父组件
+          }
+        }
+    }
+</script>
+
+
+<script>
+    //父组件
+    import login from '子组件的存放路径';
+    export default {
+        data(){
+            return {user:''}
+        },
+        components:{
+            login
+        },
+        methods:{
+            getMsg(msg) {//msg就是从子组件传递过来的参数msg
+                this.user = msg;
+            }
+        }
+    }
+</script>
+</html>

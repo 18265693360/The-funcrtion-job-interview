@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    // vuex临时存储
+    // plugins 中接受很多函数
+
+    // vuex执行 函数就会执行
+    //plugins:[function () {
+    //    console.log(1111)
+    // }]
+    // 将这里面的数据灌入 vuex中
+    // 拿出去 灌进来 实现持久化
+    // git 上已经有人做好了插件
+    // vuex-persistedstate 缓存vuex 中的数据
+
+
+    // 安装 引入
+    // 安装执行 plugins中的函数
+    // 不能用localstorage 不安全 要用用户自定义
+    //plugins:[
+    //    createPersistedState({
+    //      storage:(
+    //          getItem:key => Cookie.get(key),
+    //          setItem:(ley,value) =>
+    //            Cookie.set(key,value,{expires:3, secure:true}),
+    //          removeItem:key => Cookies.remove(key)
+    //      )
+    //    })
+    //]
+</script>
+</html>
